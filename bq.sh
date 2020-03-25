@@ -1,6 +1,5 @@
 #!/bin/bash
 #
-# Script for an easier adb logcat experience
 # Copyright (C) 2017 Pablo Fraile Alonso (Github aka: Pablito2020)
 # By pablito2020 and modified by jmpfbmx
 # This program is free software: you can redistribute it and/or modify
