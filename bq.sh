@@ -249,8 +249,25 @@ $e "  184 - Build TWRP for yamchalite"
 $e "  185 - Build TWRP for raditz"
 $e "  186 - Build TWRP for yamcha"
 $e "  187 - Build TWRP for kaito_wifi"
-$e "    x - Exit"
 $e
+$e '############################################# '
+$e '#                                           # '
+$e '#   PREPARING THE ENVIROMENT FOR BUILDING   # '
+$e '#                                           # '
+$e '############################################# '
+$e
+$e " 188 - Install needed packages [DEBIAN BASED DISTROS]"
+$e " 189 - Install repo"
+$e
+$e '######################################### '
+$e '#                                       # '
+$e '#      INSTALL NEEDED USEFUL TOOLS      # '
+$e '#                                       # '
+$e '######################################### '
+$e
+$e " 191 - Install udevrules (Thanks to @invisiblek)"
+$e " 190 - Install adb and fastboot"
+$e "    x - Exit"
 $e -n "Enter Option: "
 read o
 	case $o in
@@ -441,6 +458,10 @@ read o
        185) . build/envsetup.sh && export ALLOW_MISSING_DEPENDENCIES && lunch omni_raditz-userdebug && mka recoveryimage;;
        186) . build/envsetup.sh && export ALLOW_MISSING_DEPENDENCIES && lunch omni_yamcha-userdebug && mka recoveryimage;;
        187) . build/envsetup.sh && export ALLOW_MISSING_DEPENDENCIES && lunch omni_kaito_wifi-userdebug && mka recoveryimage;;
+       188) sudo su && apt-get install bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev && apt-get install openjdk-8-jdk && apt-get install git && exit;;
+       189) mkdir -p ~/bin && curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo && chmod a+x ~/bin/repo;;
+       190) git clone http://github.com/invisiblek/udevrules.git && cd udevrules && ./install.sh;;
+       191) sudo su && apt-get install android-tools-adb && apt-get install android-tools-fastboot && apt-get install fastboot && apt-get install adb && exit;;
 		x) clear; echo; echo "Goodbye."; echo; exit 1;;
 		*) ERR_MSG="Invalid option!"; clear;;
 	esac
