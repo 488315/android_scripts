@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2021 JMPFBMX
 #
+echo "Important uncomment Multilib at /etc/pacman.conf before you run this script!"
 echo "We are going to update your OS"
 sudo pacman -Syu
 echo "We are going to install git"
