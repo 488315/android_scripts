@@ -12,7 +12,7 @@ sudo pacman -S base-devel multilib-devel gcc repo git gnupg gperf sdl wxgtk2 squ
 echo "We are going to build and install some packages"
 git clone https://aur.archlinux.org/ncurses5-compat-libs.git && cd ncurses5-compat-libs/ && makepkg -si --skippgpcheck && cd .. && git clone https://aur.archlinux.org/lib32-ncurses5-compat-libs.git && cd lib32-ncurses5-compat-libs/ && makepkg -si --skippgpcheck && cd .. && git clone https://aur.archlinux.org/aosp-devel && cd aosp-devel && makepkg -si --skippgpcheck && cd .. && git clone https://aur.archlinux.org/xml2 && cd xml2 && makepkg -si --skippgpcheck && cd .. && git clone https://aur.archlinux.org/lineageos-devel && cd lineageos-devel/ && makepkg -si --skippgpcheck && cd ..
 echo "We are going to install needed java packages"
-sudo pacman -S jdk8-openjdk && sudo pacman -S jdk7-openjdk && sudo pacman -S jdk11-openjdk
+sudo pacman -S jdk8-openjdk && sudo pacman -S jdk11-openjdk
 echo "We are going to install imagemagick pngcrush and lzop"
 sudo pacman -S imagemagick && sudo pacman -S pngcrush && sudo pacman -S lzop
 echo "Finish"
