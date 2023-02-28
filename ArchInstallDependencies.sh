@@ -1,19 +1,37 @@
+code
 #!/bin/bash
 #
-# Copyright (C) 2021 JMPFBMX
-#
-echo "Important uncomment Multilib at /etc/pacman.conf before you run this script!"
-echo "We are going to update your OS"
+# This script updates Arch Linux, installs required packages and builds/install some packages.
+
+# Define variables
+packages=(base-devel multilib-devel gcc repo git gnupg gperf sdl wxgtk2 squashfs-tools curl ncurses zlib schedtool perl-switch zip unzip libxslt bc rsync ccache lib32-zlib lib32-ncurses lib32-readline lib32-gcc-libs flex bison android-tools android-udev libxcrypt-compat jdk8-openjdk jdk11-openjdk imagemagick pngcrush lzop)
+aur_packages=(ncurses5-compat-libs lib32-ncurses5-compat-libs aosp-devel xml2 lineageos-devel)
+
+# Update the system
+printf "Updating the system...\n"
 sudo pacman -Syu
-echo "We are going to install git"
-sudo pacman -S git
-echo "We are going to install needed dependencies"
-sudo pacman -S base-devel multilib-devel gcc repo git gnupg gperf sdl wxgtk2 squashfs-tools curl ncurses zlib schedtool perl-switch zip unzip libxslt bc rsync ccache lib32-zlib lib32-ncurses lib32-readline lib32-gcc-libs flex bison android-tools android-udev libxcrypt-compat
-echo "We are going to build and install some packages"
-git clone https://aur.archlinux.org/ncurses5-compat-libs.git && cd ncurses5-compat-libs/ && makepkg -si --skippgpcheck && cd .. && git clone https://aur.archlinux.org/lib32-ncurses5-compat-libs.git && cd lib32-ncurses5-compat-libs/ && makepkg -si --skippgpcheck && cd .. && git clone https://aur.archlinux.org/aosp-devel && cd aosp-devel && makepkg -si --skippgpcheck && cd .. && git clone https://aur.archlinux.org/xml2 && cd xml2 && makepkg -si --skippgpcheck && cd .. && git clone https://aur.archlinux.org/lineageos-devel && cd lineageos-devel/ && makepkg -si --skippgpcheck && cd ..
-echo "We are going to install needed java packages"
-sudo pacman -S jdk8-openjdk && sudo pacman -S jdk11-openjdk
-echo "We are going to install imagemagick pngcrush and lzop"
-sudo pacman -S imagemagick && sudo pacman -S pngcrush && sudo pacman -S lzop
-echo "Finish"
-clear && clear
+
+# Install required packages
+printf "Installing required packages...\n"
+sudo pacman -S "${packages[@]}"
+
+# Clone and install AUR packages
+printf "Building and installing AUR packages...\n"
+for package in "${aur_packages[@]}"; do
+  printf "Cloning and installing %s...\n" "$package"
+  git clone "https://aur.archlinux.org/$package.git"
+  cd "$package"
+  makepkg -si --skippgpcheck
+  cd ..
+  rm -rf "$package"
+done
+
+# Install required Java packages
+printf "Installing required Java packages...\n"
+sudo pacman -S jdk8-openjdk jdk11-openjdk
+
+# Install additional packages
+printf "Installing additional packages...\n"
+sudo pacman -S imagemagick pngcrush lzop
+
+printf "Finished!\n"
